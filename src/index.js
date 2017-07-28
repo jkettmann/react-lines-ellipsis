@@ -34,10 +34,17 @@ class LinesEllipsis extends React.PureComponent {
   }
 
   componentWillReceiveProps (nextProps) {
-    if (nextProps.winWidth !== this.props.winWidth) {
-      this.copyStyleToCanvas()
+    const winWidthChanged = nextProps.winWidth !== this.props.winWidth;
+    const textChanged = nextProps.text !== this.props.text;
+    const needsUpdate = winWidthChanged || textChanged;
+
+    if (winWidthChanged) {
+      this.copyStyleToCanvas();
     }
-    this.reflow(nextProps)
+
+    if (needsUpdate) {
+      this.reflow(nextProps);
+    }
   }
 
   componentWillUnmount () {
