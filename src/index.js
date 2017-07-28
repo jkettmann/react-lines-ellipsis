@@ -136,18 +136,18 @@ class LinesEllipsis extends React.PureComponent {
 
   render () {
     const {text, clamped} = this.state
-    const {ellipsis, trimRight, className} = this.props
+    const {clamp, ellipsis, trimRight, className} = this.props
     return (
       <div
         className={`LinesEllipsis ${clamped ? 'LinesEllipsis--clamped' : ''} ${className}`}
         ref={node => (this.target = node)}
       >
-        {clamped && trimRight
+        {clamp && clamped && trimRight
           ? text.replace(/[\s\uFEFF\xA0]+$/, '')
           : text
         }
         <wbr />
-        {clamped &&
+        {clamp && clamped &&
           <span className='LinesEllipsis-ellipsis'>{ellipsis}</span>
         }
       </div>
@@ -160,6 +160,7 @@ LinesEllipsis.defaultProps = {
   maxLine: 1,
   ellipsis: '…', // &hellip;
   trimRight: true,
+  clamp: true,
   className: ''
 }
 
